@@ -5,7 +5,7 @@
 #
 
 import socket
-from binascii import unhexlify
+import binascii
 
 
 def connect(cmd):
@@ -65,7 +65,6 @@ def makeCRC32(crc16):
     return hex(a ^ b)
         
 
-
 def makeCMD(cmd, cmd2=''):
     retour = makeCRC16() 
     CRChigh = retour[2] + retour[3]
@@ -87,37 +86,46 @@ def makeCMD(cmd, cmd2=''):
         CRChigh2 = som_hex2[2] + som_hex2[3]
         CRClow2 = som_hex2[4] + som_hex2[5]
 
-        s1 = bytearray(unhexlify('FE'))
-        s2 = bytearray(unhexlify('FE'))
+        s1 = binascii.unhexlify('FE')
+        s2 = binascii.unhexlify('FE')
 
-        d1 = bytearray(unhexlify(cmd)) # cmd
-        d2 = bytearray(unhexlify(cmd2)) # cmd2
-        d3 = bytearray(unhexlify(CRChigh2)) # CRChigh
-        d4 = bytearray(unhexlify(CRClow2)) # CRClow
+        d1 = binascii.unhexlify(cmd) # cmd
+        d2 = binascii.unhexlify(cmd2) # cmd2
+        d3 = binascii.unhexlify(CRChigh2) # CRChigh
+        d4 = binascii.unhexlify(CRClow2) # CRClow
 
-        e1 = bytearray(unhexlify('FE'))
-        e2 = bytearray(unhexlify('0D'))
+        e1 = binascii.unhexlify('FE')
+        e2 = binascii.unhexlify('0D')
         cmd = s1+s2+d1+d2+d3+d4+e1+e2
         return cmd
     else:
         CRChigh = som_hex[2] + som_hex[3]
         CRClow = som_hex[4] + som_hex[5]
 
-        s1 = bytearray(unhexlify('FE'))
-        s2 = bytearray(unhexlify('FE'))
+        s1 = binascii.unhexlify('FE')
+        s2 = binascii.unhexlify('FE')
 
-        d1 = bytearray(unhexlify(cmd)) # cmd
-        d2 = bytearray(unhexlify(CRChigh)) # CRChigh
-        d3 = bytearray(unhexlify(CRClow)) # CRClow
+        d1 = binascii.unhexlify(cmd) # cmd
+        d2 = binascii.unhexlify(CRChigh) # CRChigh
+        d3 = binascii.unhexlify(CRClow) # CRClow
 
-        e1 = bytearray(unhexlify('FE'))
-        e2 = bytearray(unhexlify('0D'))
+        e1 = binascii.unhexlify('FE')
+        e2 = binascii.unhexlify('0D')
         cmd = s1+s2+d1+d2+d3+e1+e2
         return cmd
 
 
-print(connect(makeCMD('00', 'ff'))) # zone 32BIT
-print(connect(makeCMD('00', '17'))) # zone 32BIT
-print(connect(makeCMD('17', 'ff'))) # zone 32BIT
-print(connect(makeCMD('7c'))) # INT-RS/ETHM-1 module version
-print(connect(makeCMD('7e'))) # INTEGRA version
+
+print(binascii.hexlify(connect(makeCMD('7C')))) # INT-RS/ETHM-1 module version
+print(binascii.hexlify(connect(makeCMD('7E')))) # INTEGRA version
+print(binascii.hexlify(connect(makeCMD('00', 'ff'))))
+print(binascii.hexlify(connect(makeCMD('00', '00')))) # no dif with FF or 00
+print('')
+print(binascii.hexlify(connect(makeCMD('01', 'ff'))))
+print(binascii.hexlify(connect(makeCMD('02', 'ff'))))
+print(binascii.hexlify(connect(makeCMD('03', 'ff'))))
+print(binascii.hexlify(connect(makeCMD('05', 'ff'))))
+print(binascii.hexlify(connect(makeCMD('06', 'ff'))))
+print(binascii.hexlify(connect(makeCMD('07', 'ff'))))
+print(binascii.hexlify(connect(makeCMD('08', 'ff'))))
+print(binascii.hexlify(connect(makeCMD('09', 'ff'))))
