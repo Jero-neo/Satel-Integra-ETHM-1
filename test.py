@@ -136,4 +136,3 @@ print(binascii.hexlify(connect(makeCMD('28', 'ff')))) # zones masked
 
 # stream
 print(binascii.hexlify(connect(makeCMD('7F'))))
-print('pannenkoek')
