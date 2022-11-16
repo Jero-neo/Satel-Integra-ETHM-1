@@ -115,17 +115,24 @@ def makeCMD(cmd, cmd2=''):
         return cmd
 
 
-
+# version
 print(binascii.hexlify(connect(makeCMD('7C')))) # INT-RS/ETHM-1 module version
 print(binascii.hexlify(connect(makeCMD('7E')))) # INTEGRA version
-print(binascii.hexlify(connect(makeCMD('00', 'ff'))))
-print(binascii.hexlify(connect(makeCMD('00', '00')))) # no dif with FF or 00
-print('')
-print(binascii.hexlify(connect(makeCMD('01', 'ff'))))
-print(binascii.hexlify(connect(makeCMD('02', 'ff'))))
-print(binascii.hexlify(connect(makeCMD('03', 'ff'))))
-print(binascii.hexlify(connect(makeCMD('05', 'ff'))))
-print(binascii.hexlify(connect(makeCMD('06', 'ff'))))
-print(binascii.hexlify(connect(makeCMD('07', 'ff'))))
-print(binascii.hexlify(connect(makeCMD('08', 'ff'))))
-print(binascii.hexlify(connect(makeCMD('09', 'ff'))))
+
+
+# 32 BIT
+print(binascii.hexlify(connect(makeCMD('00', 'ff')))) # zones violation
+print(binascii.hexlify(connect(makeCMD('01', 'ff')))) # zones tamper
+print(binascii.hexlify(connect(makeCMD('02', 'ff')))) # zones alarm
+print(binascii.hexlify(connect(makeCMD('03', 'ff')))) # zones tamper alarm
+print(binascii.hexlify(connect(makeCMD('04', 'ff')))) # zones alarm memory
+print(binascii.hexlify(connect(makeCMD('05', 'ff')))) # zones tamper alarm memory
+print(binascii.hexlify(connect(makeCMD('06', 'ff')))) # zones bypass
+print(binascii.hexlify(connect(makeCMD('07', 'ff')))) # zones 'no violation' trouble
+print(binascii.hexlify(connect(makeCMD('08', 'ff')))) # zones 'long violation' trouble
+print(binascii.hexlify(connect(makeCMD('17', 'ff')))) # outputs state
+print(binascii.hexlify(connect(makeCMD('26', 'ff')))) # zones isolate
+print(binascii.hexlify(connect(makeCMD('28', 'ff')))) # zones masked
+
+# stream
+print(binascii.hexlify(connect(makeCMD('7F'))))
