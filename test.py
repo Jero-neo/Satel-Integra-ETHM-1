@@ -116,23 +116,58 @@ def makeCMD(cmd, cmd2=''):
 
 
 # version
-print(binascii.hexlify(connect(makeCMD('7C')))) # INT-RS/ETHM-1 module version
-print(binascii.hexlify(connect(makeCMD('7E')))) # INTEGRA version
+# print(binascii.hexlify(connect(makeCMD('7C')))) # INT-RS/ETHM-1 module version
+# print(binascii.hexlify(connect(makeCMD('7E')))) # INTEGRA version
 
 
 # 32 BIT
-print(binascii.hexlify(connect(makeCMD('00', 'ff')))) # zones violation
-print(binascii.hexlify(connect(makeCMD('01', 'ff')))) # zones tamper
-print(binascii.hexlify(connect(makeCMD('02', 'ff')))) # zones alarm
-print(binascii.hexlify(connect(makeCMD('03', 'ff')))) # zones tamper alarm
-print(binascii.hexlify(connect(makeCMD('04', 'ff')))) # zones alarm memory
-print(binascii.hexlify(connect(makeCMD('05', 'ff')))) # zones tamper alarm memory
-print(binascii.hexlify(connect(makeCMD('06', 'ff')))) # zones bypass
-print(binascii.hexlify(connect(makeCMD('07', 'ff')))) # zones 'no violation' trouble
-print(binascii.hexlify(connect(makeCMD('08', 'ff')))) # zones 'long violation' trouble
-print(binascii.hexlify(connect(makeCMD('17', 'ff')))) # outputs state
-print(binascii.hexlify(connect(makeCMD('26', 'ff')))) # zones isolate
-print(binascii.hexlify(connect(makeCMD('28', 'ff')))) # zones masked
+# print(binascii.hexlify(connect(makeCMD('00', 'ff')))) # zones violation
+# print(binascii.hexlify(connect(makeCMD('01', 'ff')))) # zones tamper
+# print(binascii.hexlify(connect(makeCMD('02', 'ff')))) # zones alarm
+# print(binascii.hexlify(connect(makeCMD('03', 'ff')))) # zones tamper alarm
+# print(binascii.hexlify(connect(makeCMD('04', 'ff')))) # zones alarm memory
+# print(binascii.hexlify(connect(makeCMD('05', 'ff')))) # zones tamper alarm memory
+# print(binascii.hexlify(connect(makeCMD('06', 'ff')))) # zones bypass
+# print(binascii.hexlify(connect(makeCMD('07', 'ff')))) # zones 'no violation' trouble
+# print(binascii.hexlify(connect(makeCMD('08', 'ff')))) # zones 'long violation' trouble
+# print(binascii.hexlify(connect(makeCMD('17', 'ff')))) # outputs state
+# print(binascii.hexlify(connect(makeCMD('26', 'ff')))) # zones isolate
+# print(binascii.hexlify(connect(makeCMD('28', 'ff')))) # zones masked
 
 # stream
-print(binascii.hexlify(connect(makeCMD('7F'))))
+# print(binascii.hexlify(connect(makeCMD('7F'))))
+
+
+
+# test
+data = {
+    'cmd': {
+        '7C': {
+            'meaning': 'INT-RS/ETHM-1 module version',
+            'bytes': 12,
+            'answer': {
+                'version': 11,
+                'module': 1
+            }
+        },
+        '7D': {
+        
+        }
+    }
+}
+print(data['cmd']['7C']['meaning'])
+print(data['cmd']['7C']['bytes'])
+
+
+
+
+# tonen van alle versie gegevens
+r = binascii.hexlify(connect(makeCMD('7C'))).decode("utf-8")[4:-10] # INT-RS/ETHM-1 module version
+print(r)
+cmd = r[0] + r[1]
+v = binascii.a2b_hex(r[2:-14]).decode("utf-8")
+d = binascii.a2b_hex(r[2:]).decode("utf-8")[3:]
+
+print('cmd:    ' + cmd)
+print('versie: ' + v)
+print('datum:  ' + d)
