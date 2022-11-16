@@ -171,3 +171,4 @@ d = binascii.a2b_hex(r[2:]).decode("utf-8")[3:]
 print('cmd:    ' + cmd)
 print('versie: ' + v)
 print('datum:  ' + d)
+print('test 14:12 uur')
